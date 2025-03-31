@@ -47,7 +47,9 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 	}
 
 	// Watch for changes to primary resource Node
-	err = c.Watch(&source.Kind{Type: &v1.Node{}}, &handler.EnqueueRequestForObject{})
+	err = c.Watch(
+		source.Kind(mgr.GetCache(), &v1.Node{}, &handler.TypedEnqueueRequestForObject[*v1.Node]{}),
+	)
 	if err != nil {
 		return err
 	}

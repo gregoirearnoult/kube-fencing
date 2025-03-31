@@ -1,7 +1,7 @@
 ############################
 # STEP 1 build executable binary
 ############################
-FROM golang:1.18-alpine3.15 AS builder
+FROM golang:1.24-alpine AS builder
 
 # Install git.
 # Git is required for fetching the dependencies.
@@ -13,7 +13,7 @@ WORKDIR $GOPATH/src/github.com/kvaps/kube-fencing/cmd/switcher
 # Fetch dependencies.
 
 # Using go get.
-RUN go get -d -v
+RUN go mod tidy
 # Build the binary.
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -ldflags="-w -s" -o /go/bin/fencing-switcher
 

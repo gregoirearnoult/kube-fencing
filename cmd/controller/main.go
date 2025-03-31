@@ -54,8 +54,6 @@ func main() {
 
 	// Create a new Cmd to provide shared dependencies and start components
 	mgr, err := manager.New(cfg, manager.Options{
-		MetricsBindAddress:      "0",
-		Namespace:               Namespace,
 		LeaderElection:          true,
 		LeaderElectionID:        "kube-fencing-lock",
 		LeaderElectionNamespace: Namespace,
